@@ -29,8 +29,7 @@ rfm = df.groupby('Customer ID').agg({
 })
 
 # Dash App
-app = Dash(__name__)
-app.title = 'Retail Dynamics Dashboard'
+
 
 app.layout = dmc.MantineProvider(
     theme={"colorScheme": "dark"},
