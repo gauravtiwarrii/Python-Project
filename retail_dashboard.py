@@ -9,13 +9,7 @@ xls = pd.ExcelFile('online_retail_II.xlsx')
 df = pd.concat([xls.parse('Year 2009-2010'), xls.parse('Year 2010-2011')], ignore_index=True)
 
 # Data Preprocessing
-df = df.dropna(subset=['Customer ID'])
-df = df[(df['Quantity'] > 0) & (df['Price'] > 0)]
-df['InvoiceDate'] = pd.to_datetime(df['InvoiceDate'])
-df['TotalPrice'] = df['Quantity'] * df['Price']
-df['Year'] = df['InvoiceDate'].dt.year
-df['Month'] = df['InvoiceDate'].dt.month
-df['Hour'] = df['InvoiceDate'].dt.hour
+
 
 # RFM Analysis
 rfm = df.groupby('Customer ID').agg({
