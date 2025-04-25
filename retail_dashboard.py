@@ -14,8 +14,7 @@ df = df[(df['Quantity'] > 0) & (df['Price'] > 0)]
 df['InvoiceDate'] = pd.to_datetime(df['InvoiceDate'])
 df['TotalPrice'] = df['Quantity'] * df['Price']
 df['Year'] = df['InvoiceDate'].dt.year
-df['Month'] = df['InvoiceDate'].dt.month
-df['Hour'] = df['InvoiceDate'].dt.hour
+
 
 # RFM Analysis
 rfm = df.groupby('Customer ID').agg({
