@@ -13,8 +13,7 @@ df = df.dropna(subset=["Customer ID"])  # Remove missing customers
 df["InvoiceDate"] = pd.to_datetime(df["InvoiceDate"])
 df["Month"] = df["InvoiceDate"].dt.to_period("M").dt.to_timestamp().astype(str)  # Convert to string for JSON serialization
 
-# Figures
-# 1. Demographics - Customers per country
+
 fig_demographics = px.bar(
     df["Country"].value_counts().head(10),
     labels={"value": "Number of Customers", "index": "Country"},
