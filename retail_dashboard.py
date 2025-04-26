@@ -13,15 +13,24 @@ df = df.dropna(subset=["Customer ID"])  # Remove missing customers
 df["InvoiceDate"] = pd.to_datetime(df["InvoiceDate"])
 df["Month"] = df["InvoiceDate"].dt.to_period("M").dt.to_timestamp().astype(str)  # Convert to string for JSON serialization
 
-
+# Figures
+# 1. Demographics - Customers per country
 fig_demographics = px.bar(
     df["Country"].value_counts().head(10),
     labels={"value": "Number of Customers", "index": "Country"},
     title="Top 10 Countries by Number of Customers"
 )
 
+# 2. Trends - Monthly revenue
+monthly_revenue = df.groupby(df["InvoiceDate"].dt.to_period("M")).sum(numeric_only=True)["Price"]
+fig_trends = px.line(
+    x=monthly_revenue.index.astype(str),
+    y=monthly_revenue,
+    title="Monthly Revenue Trends",
+    labels={"y": "Revenue", "x": "Month"}
 )
 
+# 3. Customer Segmentation - RFM Analysis (example)
 rfm = df.groupby("Customer ID").agg({
     "InvoiceDate": lambda x: (df["InvoiceDate"].max() - x.max()).days,
     "Invoice": "nunique",
@@ -33,7 +42,12 @@ fig_segmentation = px.scatter(
     hover_name=rfm.index
 )
 
-
+# 4. Seasonality - Sales by Month
+fig_seasonality = px.bar(
+    df.groupby(df["InvoiceDate"].dt.month).sum(numeric_only=True)["Price"],
+    labels={"value": "Sales", "InvoiceDate": "Month"},
+    title="Sales Seasonality by Month"
+)
 
 # 5. Returns Insight - Returns by Country (Improved)
 returns = df[df["Quantity"] < 0]
