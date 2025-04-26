@@ -21,13 +21,6 @@ fig_demographics = px.bar(
     title="Top 10 Countries by Number of Customers"
 )
 
-# 2. Trends - Monthly revenue
-monthly_revenue = df.groupby(df["InvoiceDate"].dt.to_period("M")).sum(numeric_only=True)["Price"]
-fig_trends = px.line(
-    x=monthly_revenue.index.astype(str),
-    y=monthly_revenue,
-    title="Monthly Revenue Trends",
-    labels={"y": "Revenue", "x": "Month"}
 )
 
 # 3. Customer Segmentation - RFM Analysis (example)
