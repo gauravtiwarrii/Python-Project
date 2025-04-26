@@ -22,7 +22,6 @@ fig_demographics = px.bar(
 
 )
 
-# 3. Customer Segmentation - RFM Analysis (example)
 rfm = df.groupby("Customer ID").agg({
     "InvoiceDate": lambda x: (df["InvoiceDate"].max() - x.max()).days,
     "Invoice": "nunique",
