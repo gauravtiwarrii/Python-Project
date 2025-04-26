@@ -35,12 +35,7 @@ fig_segmentation = px.scatter(
     hover_name=rfm.index
 )
 
-# 4. Seasonality - Sales by Month
-fig_seasonality = px.bar(
-    df.groupby(df["InvoiceDate"].dt.month).sum(numeric_only=True)["Price"],
-    labels={"value": "Sales", "InvoiceDate": "Month"},
-    title="Sales Seasonality by Month"
-)
+
 
 # 5. Returns Insight - Returns by Country (Improved)
 returns = df[df["Quantity"] < 0]
